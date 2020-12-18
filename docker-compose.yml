@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  proxy:
+    image: crodrigues/apicadastro:latest
+    environment:
+        DatabaseConnection:connectionString: "Server=192.168.56.1,1433;Database=Estudo;UID=apiusr;PWD=12345678;"
+    build:
+      context: .
+    ports:
+      - "20000:80"
+    depends_on:
+      - pocvariavelambiente01
+      - pocvariavelambiente02
+    networks:
+      - pocvariavelambiente-compose-network
+  
+  pocvariavelambiente01:
+    image: crodrigues/apicadastro:latest
+    ports:
+      - "20001:80"
+    environment:
+      TesteAmbiente: API 01
+    networks:
+      - pocvariavelambiente-compose-network
+  
+  pocvariavelambiente02:
+    image: crodrigues/apicadastro:latest
+    ports:
+      - "20002:80"
+    environment:
+      TesteAmbiente: API 02
+    networks:
+      - pocvariavelambiente-compose-network
+
+networks: 
+    pocvariavelambiente-compose-network:
+      driver: bridge

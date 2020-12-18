@@ -1,0 +1,6 @@
+
+docker build -t crodrigues/pocvariavelambiente:latest .
+
+docker run --name pocvariavelambiente -p 1238:80 -d crodrigues/pocvariavelambiente
+
+docker-compose up -d
